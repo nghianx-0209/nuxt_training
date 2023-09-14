@@ -4,6 +4,19 @@
 
 body {
     margin: 0;
+    background-color: #F8F9FC;
+}
+
+button {
+    outline: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
 }
 
 .fixed {
@@ -16,4 +29,13 @@ body {
 
 .item-center {
     align-items: center;
+}
+
+.flex-start {
+    justify-content: flex-start;
+}
+
+.main {
+    padding-top: 72px;
+    padding-bottom: 78px;
 }

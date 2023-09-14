@@ -1,13 +1,14 @@
 <template>
   <div class="flex">
+    <!-- {{ data }} -->
     <ul class="breakcrumb-holder flex">
       <li
         v-for="(item, index) in data"
         class="breakcrumb-item flex item-center"
-        :class="{ 'active': index != data.length - 1 }"
+        :class="{ active: index != data.length - 1 && data.length == 1, 'breakcrumb-wraper': data.length == 1 && index == 0 }"
       >
-        <img v-if="index != 0" src="/img/right_arrow.png" />
-        <img v-if="index == 0" src="/img/home.svg" />
+        <img v-if="index != 0 && data.length > 1" src="/img/right_arrow.png" />
+        <img v-if="index == 0 && data.length > 1" src="/img/home.svg" />
         {{ item }}
       </li>
     </ul>
@@ -16,19 +17,17 @@
 
 <script setup>
 const props = defineProps({
-  data: String,
+  data: Array,
 });
-
 </script>
 
 <script>
-
 export default {
   data() {
     return {
       active: true,
     };
-  }
+  },
 };
 </script>
 
@@ -42,7 +41,7 @@ export default {
 }
 
 .breakcrumb-holder > li:nth-child(1) {
-    fill: $main-green-500;
+  fill: $main-green-500;
 }
 
 .active {
@@ -58,5 +57,15 @@ export default {
 .breakcrumb-holder > li > img {
   width: 15px;
   margin: 0px 7px;
+}
+
+.breakcrumb-wraper {
+  // border: 1px solid $neutral-color-200;
+  background-color: #E6E9EF;
+  border-radius: 8px;
+  padding: 4px;
+  color: $secondary-400 !important;
+  font-weight: 800;
+  font-size: 14px;
 }
 </style>

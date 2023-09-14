@@ -7,7 +7,6 @@
       </div>
     </div>
     <div class="flex item-center header-right-column">
-      <div class="seperate-line-v" />
       <div class="active">FAQ</div>
       <div class="seperate-line-v" />
       <div class="active">新着情報</div>
@@ -33,7 +32,7 @@ const breakcrumb = useBreakcrumb(route.path.split("/").slice(1));
 export default {
   data() {
     return {
-      userId: "Sun Asterisk",
+      userId: "Sun Asterisk - ASP 1 QA - ASP1様",
       show_dropdown: false,
     };
   },
@@ -67,6 +66,8 @@ export default {
   padding: 8px 24px 8px 24px;
   box-sizing: border-box;
   justify-content: space-between;
+  background-color: #FFF;
+  z-index: 50;
 }
 
 .header-right-column {
