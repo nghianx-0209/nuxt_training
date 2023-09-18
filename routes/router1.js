@@ -31,7 +31,7 @@ export default [
         pathname: "/#",
         name: "タグ設定",
       },
-    ],
+    ]
   },
   {
     id: 3,
