@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="fixed footer">
     <div class="flex item-center flex-start">

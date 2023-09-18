@@ -2,40 +2,59 @@
 @forward "font";
 @use "colors" as c;
 
+@font-face {
+  font-family: "Roboto";
+  src: url(Roboto-Regular.ttf) format("truetype");
+}
+
+html {
+    font-family: "Roboto";
+}
+
 body {
-    margin: 0;
-    background-color: #F8F9FC;
+  margin: 0;
+  background-color: #f8f9fc;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+  scrollbar-color: #d0d0d0 transparent;
+  scrollbar-width: thin;
+  word-break: break-word;
 }
 
 button {
-    outline: none;
-    border: none;
-    font-size: 14px;
-    font-weight: 800;
-    cursor: pointer;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .fixed {
-    position: fixed;
+  position: fixed;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .item-center {
-    align-items: center;
+  align-items: center;
 }
 
 .flex-start {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .main {
-    padding-top: 72px;
-    padding-bottom: 78px;
+  padding-top: 72px;
+  padding-bottom: 78px;
+  width: 100%;
 }

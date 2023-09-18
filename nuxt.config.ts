@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+// eslint-disable-next-line no-undef
 export default defineNuxtConfig({
   devtools: { enabled: true },
   pages: true,
@@ -31,5 +32,5 @@ export default defineNuxtConfig({
   modules: ['nuxt-svgo'],
   svgo: {
     autoImportPath: './assets/other-icons/'
-  }
+  },
 });

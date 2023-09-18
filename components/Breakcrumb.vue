@@ -1,9 +1,11 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="flex">
     <!-- {{ data }} -->
     <ul class="breakcrumb-holder flex">
       <li
         v-for="(item, index) in data"
+        v-bind:key="index"
         class="breakcrumb-item flex item-center"
         :class="{ active: index != data.length - 1 && data.length == 1, 'breakcrumb-wraper': data.length == 1 && index == 0 }"
       >
@@ -16,7 +18,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   data: Array,
 });
 </script>

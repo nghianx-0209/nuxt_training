@@ -4,6 +4,17 @@
   </NuxtLayout>
 </template>
 
+<script setup>
+const layout = "exam-top";
+const route = useRoute();
+// console.log(route.path);
+</script>
+
 <script>
-  const layout = 'default';
+export default {
+  mounted() {
+    const route = useRoute();
+    console.log(route.path);
+  },
+};
 </script>

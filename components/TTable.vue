@@ -11,7 +11,8 @@
       </thead>
       <tbody>
         <TRow
-          v-for="row in data.body"
+          v-for="(row, index) in data.body"
+          v-bind:key="index"
           :data="row"
           :cell_w="cell_w"
           :actions="actions"
@@ -23,7 +24,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   data: Object,
   cell_w: Array,
   actions: Array,

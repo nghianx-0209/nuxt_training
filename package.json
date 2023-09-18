@@ -10,6 +10,8 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
     "nuxt": "^3.7.1",
     "nuxt-svgo": "^3.5.2",
     "sass": "^1.66.1",
