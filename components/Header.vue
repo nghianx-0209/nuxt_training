@@ -1,8 +1,9 @@
 <template>
   <div class="header-container fixed flex">
     <div class="flex item-center">
-      <img src="/img/logo.png" />
+      <img src="/img/logo.png" v-on:click="navigateTo('/')" />
       <div class="breakcrumb">
+        <!-- {{ breakcrumb }} -->
         <Breakcrumb :data="breakcrumb" />
       </div>
     </div>
@@ -11,11 +12,19 @@
       <div class="seperate-line-v" />
       <div class="active">新着情報</div>
       <div class="seperate-line-v" />
-      <div class="active flex item-center" @click="show_dropdown = !show_dropdown">
+      <div
+        class="active flex item-center"
+        @click="show_dropdown = !show_dropdown"
+      >
         {{ userId }}
         <img class="dropdown-btn" src="/img/down_arrow.png" />
       </div>
-      <div v-if="show_dropdown" class="dropdown-menu" ref="collabsibles" v-on:focusout="seeChange">
+      <div
+        v-if="show_dropdown"
+        class="dropdown-menu"
+        ref="collabsibles"
+        v-on:focusout="seeChange"
+      >
         <div class="dropdown-item active">パスワード変更</div>
         <div class="dropdown-item active">ログアウト</div>
       </div>
@@ -24,8 +33,7 @@
 </template>
 
 <script setup>
-const route = useRoute();
-const breakcrumb = useBreakcrumb(route.path.split("/").slice(1));
+const breakcrumb = useBreakcrumb();
 </script>
 
 <script>
@@ -44,8 +52,8 @@ export default {
       console.log("out");
     },
     seeChange(event) {
-        console.log(event);
-    }
+      console.log(event);
+    },
   },
   mounted() {
     document.addEventListener("click", this.onClickOutside);
@@ -66,7 +74,7 @@ export default {
   padding: 8px 24px 8px 24px;
   box-sizing: border-box;
   justify-content: space-between;
-  background-color: #FFF;
+  background-color: #fff;
   z-index: 50;
 }
 
@@ -85,15 +93,15 @@ export default {
   padding: 4px 0px;
   top: 3rem;
   background: #fff;
-}
 
-.dropdown-item {
-  padding: 8px 16px;
-}
+  .dropdown-item {
+    padding: 8px 16px;
 
-.dropdown-item:hover {
-  background-color: #f3f4f6;
-  color: $main-green-500;
+    &:hover {
+      background-color: #f3f4f6;
+      color: $main-green-500;
+    }
+  }
 }
 
 .header-right-column:nth-child(even) {

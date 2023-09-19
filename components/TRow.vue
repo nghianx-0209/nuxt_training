@@ -84,12 +84,17 @@ export default {
   overflow: auto;
   text-overflow: ellipsis;
   text-align: start;
-}
 
-.t-cell:last-child {
+  &:last-child {
   width: 100% !important;
   text-align: end;
 }
+}
+
+// .t-cell:last-child {
+//   width: 100% !important;
+//   text-align: end;
+// }
 
 .active {
     cursor: pointer;

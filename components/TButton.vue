@@ -36,38 +36,59 @@ button {
   margin-right: 16px;
   transition: background-color 0.25s ease;
   min-width: 90px;
+
+  svg {
+    margin-right: 4px;
+    font-size: large;
+  }
+
+  &:nth-child(2) {
+    width: 140px;
+  }
 }
 
-button:nth-child(2) {
-  width: 140px;
-}
+// button:nth-child(2) {
+//   width: 140px;
+// }
 
-button > svg {
-  margin-right: 4px;
-  font-size: large;
-}
+// button > svg {
+//   margin-right: 4px;
+//   font-size: large;
+// }
 
 .primary {
   background-color: $main-green-500;
+
+  &:hover {
+    background-color: #36898d;
+  }
 }
 
-.primary:hover {
-  background-color: #36898d;
-}
+// .primary:hover {
+//   background-color: #36898d;
+// }
 
 .secondary {
   background-color: $secondary-400;
+
+  &:hover {
+    background-color: #4f5b79;
+  }
 }
 
-.secondary:hover {
-  background-color: #4f5b79;
-}
+// .secondary:hover {
+//   background-color: #4f5b79;
+// }
 
 .warning {
   background-color: $sub-600;
+
+  &:hover {
+    background-color: $sub-700;
+  }
 }
 
-.warning:hover {
-  background-color: $sub-700;
-}
+// .warning:hover {
+//   background-color: $sub-700;
+// }
 </style>

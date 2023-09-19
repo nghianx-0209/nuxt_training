@@ -2,6 +2,7 @@
     <Header />
     <div class="page-content flex">
       <SideBar />
+      <slot />
     </div>
 </template>
 

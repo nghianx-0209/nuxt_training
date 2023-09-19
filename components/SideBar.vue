@@ -5,8 +5,19 @@
         <li v-for="(item, index) in route">
           <div
             class="sidebar-item"
-            :class="{ 'active-sidebar-item': index == active_index }"
-            v-on:click="() => clickHandle(index, url)"
+            :class="{
+              'active-sidebar-item': isActive(item.url, item.childs?.map(child => child.url), client, exam),
+            }"
+            v-on:click="
+              () => {
+                if (!item.childs) {
+                  clickHandle(index);
+                  navigate(client, exam, item.url);
+                  breakcrumb = breakcrumb.slice(0, 1);
+                  breakcrumb[1] = item.name;
+                } else showSubMenu[index] = !showSubMenu[index];
+              }
+            "
           >
             <component :is="item.icon" />
             {{ item.name }}
@@ -19,7 +30,22 @@
             v-if="item.childs?.length != 0 && showSubMenu[index]"
           >
             <ul>
-              <li v-for="(child) in item.childs" v-on:click="() => clickHandleSubItem(index, child.url)">{{ child?.name }}</li>
+              <li
+                v-for="(child, index2) in item.childs"
+                :class="{
+                  'active-submenu-item': isActive(child.url, [], client, exam),
+                }"
+                v-on:click="
+                  () => {
+                    clickHandleSubItem(index, index2);
+                    navigate(client, exam, child.url);
+                    breakcrumb[1] = item.name;
+                    breakcrumb[2] = child.name;
+                  }
+                "
+              >
+                {{ child?.name }}
+              </li>
             </ul>
           </div>
         </li>
@@ -36,7 +62,8 @@ import ViewGrid from "@/assets/icons/view-grid.svg";
 import ClipboardList from "@/assets/icons/clipboard-list.svg";
 import Mail from "@/assets/icons/mail.svg";
 import Downarrow from "@/assets/icons/down.svg";
-import route from "@/routes/router1";
+import route, { prefix } from "@/routes/router1";
+
 export default {
   components: {
     HomeIcon,
@@ -44,35 +71,63 @@ export default {
     UsersGroup,
     ViewGrid,
     ClipboardList,
-    Mail
+    Mail,
   },
   data() {
     return {
       active_index: 0,
-      showSubMenu: route.map(() => true)
+      activeSubIndex: undefined,
+      showSubMenu: route.map(() => true),
     };
   },
   methods: {
-    clickHandle(id, url) {
-      console.log(url)
+    clickHandle(id) {
       this.active_index = id;
+      this.activeSubIndex = undefined;
       this.showSubMenu[id] = !this.showSubMenu[id];
     },
 
-    clickHandleSubItem(id, url) {
+    clickHandleSubItem(id, id2) {
       this.active_index = id;
-    }
-  }
+      this.activeSubIndex = id * route.length + id2;
+    },
+
+    navigate(client, exam, url) {
+      navigateTo(
+        `${prefix
+          .replace(":clientId", client.clientId)
+          .replace(":examId", exam.examId)}${url}`
+      );
+    },
+  },
 };
 </script>
 
 <script setup>
+const currentRoute = useRoute();
+const client = useClient();
+const exam = useExam();
+const breakcrumb = useBreakcrumb();
+
 defineProps({
   active_index: {
     type: Number,
     default: 0,
-  }
+  },
 });
+
+const isActive = (url1, url2, client, exam) => {
+  const child = url2?.some(url => prefix
+      .replace(":clientId", client.clientId)
+      .replace(":examId", exam.examId) +
+      url === currentRoute.path)
+  return (
+    prefix
+      .replace(":clientId", client.clientId)
+      .replace(":examId", exam.examId) +
+      url1 === currentRoute.path || child
+  );
+};
 </script>
 
 <style lang="scss">
@@ -100,29 +155,43 @@ ul {
   position: relative;
 }
 
-.sidebar-item svg {
-  font-size: 1.5rem;
+.sidebar-item {
+  svg {
+    font-size: 1.5rem;
+  }
 }
 
 .sidebar-item:hover,
 .active-sidebar-item {
   border-left: 5px solid $main-green-500;
   color: $main-green-500;
+
+  &.submenu {
+    color: $main-green-500;
+  }
 }
 
 .childs-item {
   padding-left: 54px;
+
+  .active-submenu-item {
+    color: $main-green-500;
+  }
 }
 
-.childs-item li {
-  color: $secondary-300;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
+.childs-item {
+  li {
+    color: $secondary-300;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
 }
 
-.childs-item li:hover {
-  color: $main-green-500;
-  cursor: pointer;
+.childs-item {
+  li:hover {
+    color: $main-green-500;
+    cursor: pointer;
+  }
 }
 
 .submenu-arrow {

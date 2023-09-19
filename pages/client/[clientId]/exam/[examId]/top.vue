@@ -15,34 +15,40 @@ export default {
     return {
       title: "Sun Asterisk - ASP 1",
       data: {
-        header: ['検査名', '検査種別'],
+        header: ["検査名", "検査種別"],
         body: [
-            {a: 1, b: 2},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5},
-            {a: 4, b: 5}
-        ]
+          { a: 1, b: 2 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+          { a: 4, b: 5 },
+        ],
       },
-      cell_w: [65, 20]
+      cell_w: [65, 20],
     };
   },
   methods: {
     actions1(value: Number) {
-        console.log(value)
-    }
-  }
+      console.log(value);
+    },
+  },
 };
+</script>
+
+<script setup lang="ts">
+definePageMeta({
+  layout: "default",
+});
 </script>
 
 <style lang="scss">
