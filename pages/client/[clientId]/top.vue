@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="main">
     <div class="fixed page-title flex item-center">{{ title }}</div>
@@ -18,34 +19,36 @@ export default {
         header: ["検査名", "検査種別"],
         body: [
           { a: 1, b: 2 },
+          { a: 2, b: 5 },
+          { a: 3, b: 5 },
           { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
-          { a: 4, b: 5 },
+          { a: 5, b: 5 },
+          { a: 6, b: 5 },
+          { a: 7, b: 5 },
+          { a: 8, b: 5 },
+          { a: 9, b: 5 },
+          { a: 10, b: 5 },
+          { a: 11, b: 5 },
+          { a: 12, b: 5 },
+          { a: 13, b: 5 },
+          { a: 14, b: 5 },
+          { a: 15, b: 5 },
         ],
       },
+      // eslint-disable-next-line camelcase
       cell_w: [65, 20],
     };
   },
   methods: {
     actions1(value: Number) {
-      console.log(value);
+      console.log(value)
     },
   },
 };
 </script>
 
 <script setup lang="ts">
+
 definePageMeta({
   layout: "default",
 });

@@ -1,14 +1,14 @@
 <template>
   <button
     :class="{ primary: primary, secondary: secondary, warning: warning }"
-    v-on:click="clickHandle"
+    @click="event => clickHandle(event)"
   >
     <slot />{{ title }}
   </button>
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   title: String,
   primary: Boolean,
   secondary: Boolean,
@@ -20,7 +20,8 @@ const props = defineProps({
 <script>
 export default {
   methods: {
-    clickHandle() {
+    clickHandle(event) {
+      event.preventDefault();
       this.actions();
     },
   },

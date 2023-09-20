@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper">
     <div class="item-list">
       <ul>
-        <li v-for="(item, index) in route">
+        <li v-for="(item, index) in route" :key="index">
           <div
             class="sidebar-item"
             :class="{
@@ -11,7 +11,6 @@
             v-on:click="
               () => {
                 if (!item.childs) {
-                  clickHandle(index);
                   navigate(client, exam, item.url);
                   breakcrumb = breakcrumb.slice(0, 1);
                   breakcrumb[1] = item.name;
@@ -37,12 +36,12 @@
                 }"
                 v-on:click="
                   () => {
-                    clickHandleSubItem(index, index2);
                     navigate(client, exam, child.url);
                     breakcrumb[1] = item.name;
                     breakcrumb[2] = child.name;
                   }
                 "
+                :key="index2"
               >
                 {{ child?.name }}
               </li>
@@ -75,23 +74,11 @@ export default {
   },
   data() {
     return {
-      active_index: 0,
       activeSubIndex: undefined,
       showSubMenu: route.map(() => true),
     };
   },
   methods: {
-    clickHandle(id) {
-      this.active_index = id;
-      this.activeSubIndex = undefined;
-      this.showSubMenu[id] = !this.showSubMenu[id];
-    },
-
-    clickHandleSubItem(id, id2) {
-      this.active_index = id;
-      this.activeSubIndex = id * route.length + id2;
-    },
-
     navigate(client, exam, url) {
       navigateTo(
         `${prefix
@@ -108,13 +95,6 @@ const currentRoute = useRoute();
 const client = useClient();
 const exam = useExam();
 const breakcrumb = useBreakcrumb();
-
-defineProps({
-  active_index: {
-    type: Number,
-    default: 0,
-  },
-});
 
 const isActive = (url1, url2, client, exam) => {
   const child = url2?.some(url => prefix

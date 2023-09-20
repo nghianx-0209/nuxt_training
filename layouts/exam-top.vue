@@ -6,15 +6,6 @@
     </div>
 </template>
 
-<script>
-import HomeSVG from '@/assets/icons/home.svg';
-export default {
-  components: {
-    HomeSVG
-  }
-}
-</script>
-
 <style lang="scss">
     .page-content {
         width: 100%;

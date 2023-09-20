@@ -1,5 +1,6 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="header-container fixed flex">
+  <header class="header-container fixed flex">
     <div class="flex item-center">
       <img src="/img/logo.png" v-on:click="navigateTo('/')" />
       <div class="breakcrumb">
@@ -11,16 +12,17 @@
       <div class="active">FAQ</div>
       <div class="seperate-line-v" />
       <div class="active">新着情報</div>
-      <div class="seperate-line-v" />
+      <div class="seperate-line-v" v-if="!!client" />
       <div
+      v-if="!!client"
         class="active flex item-center"
-        @click="show_dropdown = !show_dropdown"
+        @click="showDropdown = !showDropdown"
       >
-        {{ userId }}
+        {{ client?.userId }}
         <img class="dropdown-btn" src="/img/down_arrow.png" />
       </div>
       <div
-        v-if="show_dropdown"
+        v-if="showDropdown"
         class="dropdown-menu"
         ref="collabsibles"
         v-on:focusout="seeChange"
@@ -29,11 +31,12 @@
         <div class="dropdown-item active">ログアウト</div>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <script setup>
 const breakcrumb = useBreakcrumb();
+const client = useClient();
 </script>
 
 <script>
@@ -41,7 +44,7 @@ export default {
   data() {
     return {
       userId: "Sun Asterisk - ASP 1 QA - ASP1様",
-      show_dropdown: false,
+      showDropdown: false,
     };
   },
   method: {
@@ -54,13 +57,7 @@ export default {
     seeChange(event) {
       console.log(event);
     },
-  },
-  mounted() {
-    document.addEventListener("click", this.onClickOutside);
-  },
-  beforeDestroy() {
-    document.removeEventListener("click", this.onClickOutside);
-  },
+  }
 };
 </script>
 
@@ -76,6 +73,7 @@ export default {
   justify-content: space-between;
   background-color: #fff;
   z-index: 50;
+  top: 0;
 }
 
 .header-right-column {

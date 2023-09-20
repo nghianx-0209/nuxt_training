@@ -23,7 +23,6 @@
 
 <script setup>
 const breakcrumb = useBreakcrumb();
-console.log(breakcrumb);
 defineProps({
   data: Array,
 });

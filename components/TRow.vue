@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   data: Object | Array,
   cell_w: Array,
   header: {
