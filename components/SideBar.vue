@@ -6,7 +6,11 @@
           <div
             class="sidebar-item"
             :class="{
-              'active-sidebar-item': isActive(item.url, item.childs?.map(child => child.url), client, exam),
+              'active-sidebar-item': isActive(
+                item.url,
+                item.childs?.map((child) => child.url),
+                exam
+              ),
             }"
             v-on:click="
               () => {
@@ -32,7 +36,7 @@
               <li
                 v-for="(child, index2) in item.childs"
                 :class="{
-                  'active-submenu-item': isActive(child.url, [], client, exam),
+                  'active-submenu-item': isActive(child.url, [], exam),
                 }"
                 v-on:click="
                   () => {
@@ -80,11 +84,12 @@ export default {
   },
   methods: {
     navigate(client, exam, url) {
-      navigateTo(
-        `${prefix
-          .replace(":clientId", client.clientId)
-          .replace(":examId", exam.examId)}${url}`
-      );
+      // navigateTo(
+      //   `${prefix
+      //     .replace(":clientId", client.clientId)
+      //     .replace(":examId", exam.examId)}${url}`
+      // );
+      navigateTo(url);
     },
   },
 };
@@ -96,17 +101,37 @@ const client = useClient();
 const exam = useExam();
 const breakcrumb = useBreakcrumb();
 
-const isActive = (url1, url2, client, exam) => {
-  const child = url2?.some(url => prefix
-      .replace(":clientId", client.clientId)
-      .replace(":examId", exam.examId) +
-      url === currentRoute.path)
-  return (
-    prefix
-      .replace(":clientId", client.clientId)
-      .replace(":examId", exam.examId) +
-      url1 === currentRoute.path || child
+const isActive = (url1, url2, exam) => {
+  // console.log(url1, url2);
+  // const child = url2?.some(
+  //   (url) =>
+  //     prefix
+  //       .replace(":clientId", client.value.info.clientId)
+  //       .replace(":examId", exam.examId) +
+  //       "/" +
+  //       url ===
+  //     currentRoute.path
+  // );
+  // console.log(
+  //   prefix
+  //     .replace(":clientId", client.value.info.clientId)
+  //     .replace(":examId", exam.examId) +
+  //     url1 ===
+  //     currentRoute.path || child
+  // );
+  // return (
+  //   prefix
+  //     .replace(":clientId", client.value.info.clientId)
+  //     .replace(":examId", exam.examId) +
+  //     url1 ===
+  //     currentRoute.path || child
+  // );
+  const parent = url1 === currentRoute.path.split("/").slice(-1)[0];
+  const child = url2?.some(
+    (url) => url === currentRoute.path.split("/").slice(-1)[0]
   );
+  // console.log(url1, url2, url1 === currentRoute.path.split("/").slice(-1)[0] || child, currentRoute.path);
+  return parent || child;
 };
 </script>
 

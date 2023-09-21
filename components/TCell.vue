@@ -1,13 +1,18 @@
 <template>
   <!-- {{ header }} -->
-  <th v-if="header" class="t-cell" :style="cssProps">
+  <th v-if="header" class="t-cell" :style="cssProps" :class="{'action': data.type == 'action'}">
     {{ data.value }}
   </th>
-  <td v-else class="t-cell" :style="cssProps">
+  <td v-else class="t-cell" :style="cssProps" :class="{'action': data.type == 'action'}">
     <span v-if="data.type == 'normal'">{{ data.value }}</span>
     <TButton
       v-if="data.type == 'action'"
-      :actions="click"
+      :actions="
+        () => {
+          exam = { examId: data.examId };
+          click(data.url);
+        }
+      "
       title="選択"
       secondary
     />
@@ -15,7 +20,8 @@
 </template>
 
 <script setup>
-const props = defineProps({
+const exam = useExam();
+defineProps({
   data: {
     type: Object,
     default: undefined,
@@ -46,9 +52,11 @@ export default {
     },
   },
   methods: {
-    click() {
+    click(url) {
       if (!this.header) {
-        this.data.value(this.test);
+        navigateTo(url);
+        // console.log(url);
+        // this.data.value(this.test);
       }
     },
   },
@@ -64,9 +72,11 @@ export default {
   text-align: start;
 
   &:last-child {
-  width: 100% !important;
-  text-align: end;
-}
+    .action {
+      width: 100% !important;
+      text-align: end;
+    }
+  }
 }
 
 // .t-cell:last-child {

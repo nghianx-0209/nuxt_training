@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="main">
-    <div class="fixed page-title flex item-center">{{ title }}</div>
+    <div class="fixed page-title flex item-center">{{ client?.info.userId }}</div>
     <div class="body-page">
       <div class="page-wrapper">
         <TTable :data="data" :cell_w="cell_w" :actions="[actions1]" activeRow />
@@ -48,9 +48,12 @@ export default {
 </script>
 
 <script setup lang="ts">
-
+const client = useClient();
 definePageMeta({
   layout: "default",
+  middleware: [
+    "auth"
+  ]
 });
 </script>
 

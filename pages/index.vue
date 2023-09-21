@@ -1,13 +1,6 @@
-<template>
-  <NuxtPage />
-</template>
+<!-- eslint-disable vue/multi-word-component-names -->
+<template>jdkjsn</template>
 
-<script>
-  export default {
-    data() {
-      return {
-        a: 1
-      }
-    }
-  }
+<script setup>
+navigateTo("/client/login");
 </script>

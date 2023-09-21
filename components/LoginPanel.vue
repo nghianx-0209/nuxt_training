@@ -8,7 +8,7 @@
           :placeholder="loginIdPlaceholder"
           :value="inputText"
           @inputValue="changeUserId($event)"
-          :validationFunction="(value) => value === 'nguyen.xuan.nghia@sun-asterisk.com' && value !== ''"
+          :validationFunction="(value) => value === 'nghia.com' && value !== ''"
           :validationText="loginIdPlaceholder"
         >
           <template v-slot:header_icon>

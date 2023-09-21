@@ -2,7 +2,7 @@
 <template>
   <header class="header-container fixed flex">
     <div class="flex item-center">
-      <img src="/img/logo.png" v-on:click="navigateTo('/')" />
+      <img src="/img/logo.png" v-on:click="navigateTo('/client/login')" />
       <div class="breakcrumb">
         <!-- {{ breakcrumb }} -->
         <Breakcrumb :data="breakcrumb" />
@@ -18,8 +18,8 @@
         class="active flex item-center"
         @click="showDropdown = !showDropdown"
       >
-        {{ client?.userId }}
-        <img class="dropdown-btn" src="/img/down_arrow.png" />
+        {{ client?.info.userId }}
+        <img v-if="!!client" class="dropdown-btn" src="/img/down_arrow.png" />
       </div>
       <div
         v-if="showDropdown"
@@ -28,7 +28,12 @@
         v-on:focusout="seeChange"
       >
         <div class="dropdown-item active">パスワード変更</div>
-        <div class="dropdown-item active">ログアウト</div>
+        <div class="dropdown-item active" @click="() => {
+          client = undefined;
+          breakcrumb = [];
+          showDropdown = false;
+          navigateTo('/');
+        }">ログアウト</div>
       </div>
     </div>
   </header>

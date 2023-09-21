@@ -6,7 +6,11 @@
         (value) => {
           const result = loginHandle(value);
           if (result.status) {
-            client = { ...value, ...client };
+            client = { ...result };
+            breakcrumb[0] = {
+              title: client.info.userId,
+              url: undefined
+            };
             navigateTo(`/client/${result.info.clientId}/top`);
           } else {
             console.log('shiet');
@@ -19,8 +23,10 @@
 
 <script setup>
 const client = useClient();
+const breakcrumb = useBreakcrumb();
 definePageMeta({
   layout: "login",
+  middleware: ["auth"]
 });
 </script>
 
@@ -36,7 +42,7 @@ export default {
       return {
         info: {...value, clientId: "000023"},
         status:
-          value.userId === "nguyen.xuan.nghia@sun-asterisk.com" &&
+          value.userId === "nghia.com" &&
           value.password === "mjwFOG68",
       };
     },

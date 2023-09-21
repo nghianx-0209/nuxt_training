@@ -8,14 +8,25 @@
         v-bind:key="index"
         class="breakcrumb-item flex item-center"
         :class="{
-          active: index != data.length - 1 && data.length == 1,
+          active: (index === 0 || index === 1) && breakcrumb.length > 2,
           'breakcrumb-wraper': data.length == 1 && index == 0,
+          normal: index > 1,
         }"
+        @click="
+          () => {
+            if (item.url) {
+              breakcrumb = breakcrumb.slice(0, index + 1);
+              if (index == 0) exam = undefined;
+              console.log(breakcrumb);
+              navigateTo(item.url);
+            }
+          }
+        "
       >
         <img v-if="index != 0 && data.length > 1" src="/img/right_arrow.png" />
         <!-- <img v-if="index == 0 && data.length > 1" src="/img/home.svg" /> -->
         <HomeSVG v-if="index == 0 && data.length > 1" />
-        {{ item }}
+        {{ item.title }}
       </li>
     </ul>
   </div>
@@ -23,6 +34,7 @@
 
 <script setup>
 const breakcrumb = useBreakcrumb();
+const exam = useExam();
 defineProps({
   data: Array,
 });
@@ -55,6 +67,14 @@ export default {
   li:nth-child(1) {
     fill: $main-green-500;
   }
+
+  .breakcrumb-item {
+    cursor: default;
+  }
+
+  .normal {
+    color: $neutral-color-500;
+  }
 }
 
 // .breakcrumb-holder > li {
@@ -66,7 +86,7 @@ export default {
 // }
 
 .active {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .breakcrumb-arrow {

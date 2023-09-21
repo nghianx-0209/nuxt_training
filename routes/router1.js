@@ -4,7 +4,7 @@ export default [
   {
     id: 1,
     name: "検査TOP",
-    url: "/exam-top",
+    url: "exam-top",
     icon: "HomeIcon"
   },
   {
@@ -15,22 +15,22 @@ export default [
     childs: [
       {
         id: 1,
-        url: "/edit-exam",
+        url: "edit-exam",
         name: "検査内容設定",
       },
       {
         id: 2,
-        url: "/classification-setting",
+        url: "classification-setting",
         name: "部署設定",
       },
       {
         id: 3,
-        url: "/section-setting",
+        url: "section-setting",
         name: "役職設定",
       },
       {
         id: 4,
-        url: "/tag-setting",
+        url: "tag-setting",
         name: "タグ設定",
       },
     ]
@@ -43,22 +43,22 @@ export default [
     childs: [
       {
         id: 1,
-        url: "/exam-top",
+        url: "exam-top",
         name: "受検者検索",
       },
       {
         id: 2,
-        url: "/import-csv",
+        url: "import-csv",
         name: "CSVインポット",
       },
       {
         id: 3,
-        url: "/add-examinee",
+        url: "add-examinee",
         name: "受検者追加",
       },
       {
         id: 4,
-        url: "/check-duplicate",
+        url: "check-duplicate",
         name: "重複受検者チェック",
       },
     ],
@@ -79,7 +79,7 @@ export default [
     id: 6,
     url: undefined,
     name: "その他",
-    icon: 'ViewGrid',
+    icon: "ViewGrid",
     childs: [
       {
         id: 1,

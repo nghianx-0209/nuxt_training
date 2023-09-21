@@ -1,5 +1,5 @@
 <template>
-  <tr class="t-row" :class="{'active': active}" >
+  <tr class="t-row" :class="{ active: active }">
     <TCell
       v-for="(cell, index) in r_data"
       :data="cell"
@@ -21,8 +21,8 @@ defineProps({
   actions_size: Number,
   active: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 </script>
 
@@ -44,6 +44,8 @@ export default {
         this.r_data.push({
           type: "action",
           value: (value) => action(value),
+          url: `exam/${this.data["a"]}/exam-top`,
+          examId: this.data["a"],
         });
       });
     } else {
@@ -86,9 +88,11 @@ export default {
   text-align: start;
 
   &:last-child {
-  width: 100% !important;
-  text-align: end;
-}
+    .action {
+      width: 100% !important;
+      text-align: end;
+    }
+  }
 }
 
 // .t-cell:last-child {
@@ -97,6 +101,6 @@ export default {
 // }
 
 .active {
-    cursor: pointer;
+  cursor: pointer;
 }
 </style>
