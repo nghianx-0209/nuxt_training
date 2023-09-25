@@ -16,8 +16,6 @@
               () => {
                 if (!item.childs) {
                   navigate(client, exam, item.url);
-                  breakcrumb = breakcrumb.slice(0, 1);
-                  breakcrumb[1] = item.name;
                 } else showSubMenu[index] = !showSubMenu[index];
               }
             "
@@ -41,8 +39,6 @@
                 v-on:click="
                   () => {
                     navigate(client, exam, child.url);
-                    breakcrumb[1] = item.name;
-                    breakcrumb[2] = child.name;
                   }
                 "
                 :key="index2"
@@ -65,7 +61,7 @@ import ViewGrid from "@/assets/icons/view-grid.svg";
 import ClipboardList from "@/assets/icons/clipboard-list.svg";
 import Mail from "@/assets/icons/mail.svg";
 import Downarrow from "@/assets/icons/down.svg";
-import route, { prefix } from "@/routes/router1";
+import route from "@/routes/router1";
 
 export default {
   components: {
@@ -84,11 +80,6 @@ export default {
   },
   methods: {
     navigate(client, exam, url) {
-      // navigateTo(
-      //   `${prefix
-      //     .replace(":clientId", client.clientId)
-      //     .replace(":examId", exam.examId)}${url}`
-      // );
       navigateTo(url);
     },
   },
@@ -99,7 +90,6 @@ export default {
 const currentRoute = useRoute();
 const client = useClient();
 const exam = useExam();
-const breakcrumb = useBreakcrumb();
 
 const isActive = (url1, url2, exam) => {
   // console.log(url1, url2);
@@ -142,8 +132,9 @@ const isActive = (url1, url2, exam) => {
   border-style: solid;
   border-color: #e5e7eb;
   margin-top: 58px;
-  height: calc(100% - 72px);
+  height: calc(100% - 58px);
   background-color: rgb(255, 254, 254);
+  position: fixed;
 }
 
 ul {

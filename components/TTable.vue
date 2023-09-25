@@ -3,10 +3,10 @@
     <table class="t-table">
       <thead>
         <TRow
-          :data="data.header"
-          :cell_w="cell_w"
+          :data="selectAll ? [' ', ...data.header] : data.header"
+          :cellWidth="cellWidth"
           :header="true"
-          :actions_size="actions.length"
+          :actionsSize="actions.length"
         />
       </thead>
       <tbody>
@@ -14,10 +14,14 @@
           v-for="(row, index) in data.body"
           v-bind:key="index"
           :data="row"
-          :cell_w="cell_w"
+          :cellWidth="cellWidth"
           :actions="actions"
           :active="activeRow"
+          :selectAll="selectAll"
+          :selectToggle="(data) => selectToggle(data)"
+          :defaultSelect="selectAllStatus"
         />
+        <TRow v-if="data.body.length === 0" :data="{text: noDataText}" :cellWidth="[100]" :actions="actions" :noData="data.header.length" />
       </tbody>
     </table>
   </div>
@@ -26,13 +30,55 @@
 <script setup>
 defineProps({
   data: Object,
-  cell_w: Array,
+  cellWidth: Array,
   actions: Array,
   activeRow: {
     type: Boolean,
     default: false,
   },
+  noDataText: String,
+  selectAll: {
+    type: Boolean,
+    default: false
+  },
+  selectAllStatus: {
+    type: Boolean,
+    default: false
+  }
 });
+</script>
+
+
+<script>
+  export default {
+    data() {
+      return {
+        selectData: []
+      }
+    },
+    methods: {
+      selectToggle(item) {
+        if (item.checked)
+          this.selectData.push(item.data);
+        else
+          this.selectData = this.selectData.filter(data => data.id !== item.data.id);
+      }
+    },
+    computed: {
+      selectAllToggle() {
+        this.selectData = this.selectAllToggle ? this.data.body : [];
+        return this.selectAllToggle ? this.data.body : [];
+      }
+    },
+    watch: {
+      selectData() {
+        console.log(this.selectData);
+      },
+      selectAllStatus() {
+        this.selectAllToggle;
+      }
+    }
+  }
 </script>
 
 <style lang="scss">

@@ -3,8 +3,9 @@
   <th v-if="header" class="t-cell" :style="cssProps" :class="{'action': data.type == 'action'}">
     {{ data.value }}
   </th>
-  <td v-else class="t-cell" :style="cssProps" :class="{'action': data.type == 'action'}">
+  <td v-else class="t-cell" :style="cssProps" :class="{'action': data.type == 'action'}" :colspan="noData" >
     <span v-if="data.type == 'normal'">{{ data.value }}</span>
+    <input v-if="data.type == 'checkbox'" type="checkbox" :checked="defaultSelect" v-on:change="event => selectToggle(event.target.checked)" />
     <TButton
       v-if="data.type == 'action'"
       :actions="
@@ -26,7 +27,7 @@ defineProps({
     type: Object,
     default: undefined,
   },
-  cell_w: {
+  cellWidth: {
     type: [String, Number],
     required: true,
   },
@@ -34,6 +35,18 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  noData: {
+    type: Number,
+    default: 1
+  },
+  selectToggle: {
+    type: Function,
+    default: () => {}
+  },
+  defaultSelect: {
+    type: Boolean,
+    default: false
+  }
 });
 </script>
 
@@ -47,7 +60,7 @@ export default {
   computed: {
     cssProps() {
       return {
-        "--width": `${this.cell_w}%`,
+        "--width": `${this.cellWidth}%`,
       };
     },
   },

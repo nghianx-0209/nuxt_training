@@ -4,7 +4,7 @@
     <div class="fixed page-title flex item-center">{{ client?.info.userId }}</div>
     <div class="body-page">
       <div class="page-wrapper">
-        <TTable :data="data" :cell_w="cell_w" :actions="[actions1]" activeRow />
+        <TTable :data="data" :cellWidth="cellWidth" :actions="[actions1]" activeRow />
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@ export default {
         ],
       },
       // eslint-disable-next-line camelcase
-      cell_w: [65, 20],
+      cellWidth: [65, 20],
     };
   },
   methods: {

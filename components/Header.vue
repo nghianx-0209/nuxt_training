@@ -26,6 +26,7 @@
         class="dropdown-menu"
         ref="collabsibles"
         v-on:focusout="seeChange"
+        :v-click-away="onClickAway"
       >
         <div class="dropdown-item active">パスワード変更</div>
         <div class="dropdown-item active" @click="() => {
@@ -45,6 +46,7 @@ const client = useClient();
 </script>
 
 <script>
+import { mixin as VueClickAway } from "vue3-click-away";
 export default {
   data() {
     return {
@@ -52,6 +54,7 @@ export default {
       showDropdown: false,
     };
   },
+  mixins: [VueClickAway],
   method: {
     onClickOutside(event) {
       console.log(event);
@@ -62,6 +65,9 @@ export default {
     seeChange(event) {
       console.log(event);
     },
+    onClickAway(event) {
+      console.log(event);
+    }
   }
 };
 </script>

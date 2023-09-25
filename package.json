@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port 8000",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@typescript-eslint/parser": "^6.7.2",
-    "vite-svg-loader": "^4.0.0"
+    "json-server": "^0.17.3",
+    "vite-svg-loader": "^4.0.0",
+    "vue3-click-away": "^1.2.4"
   }
 }

@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@/assets/style/global.scss" as *;',
+          additionalData: "@use \"@/assets/style/global.scss\" as *;",
         },
       },
     },
@@ -29,8 +29,8 @@ export default defineNuxtConfig({
       "composables/**",
     ],
   },
-  modules: ['nuxt-svgo'],
+  modules: ["nuxt-svgo"],
   svgo: {
-    autoImportPath: './assets/other-icons/'
-  },
+    autoImportPath: "./assets/other-icons/"
+  }
 });
