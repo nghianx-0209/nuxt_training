@@ -7,7 +7,9 @@
       :header="header"
       :key="index"
       :noData="noData"
-      :selectToggle="(checked) => selectToggle({checked: checked, data: data})"
+      :selectToggle="
+        (checked) => selectToggle({ checked: checked, data: data })
+      "
       :defaultSelect="defaultSelect"
     />
   </tr>
@@ -37,12 +39,12 @@ defineProps({
   },
   selectToggle: {
     type: Function,
-    default: () => {}
+    default: () => {},
   },
   defaultSelect: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 </script>
 
@@ -96,6 +98,27 @@ export default {
       if (!this.header) {
         this.data.value(this.test);
       }
+    },
+  },
+  watch: {
+    data: {
+      handler(oldValue) {
+        this.rowData = [];
+        if (this.selectAll) {
+          this.rowData[0] = {
+            type: "checkbox",
+            value: undefined,
+          };
+        }
+        this.rowData = [
+          ...this.rowData,
+          ...Object.values(oldValue).map((item) => ({
+            value: item,
+            type: "normal",
+          })),
+        ];
+      },
+      deep: true,
     },
   },
 };

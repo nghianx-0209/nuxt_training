@@ -4,7 +4,7 @@
     {{ data.value }}
   </th>
   <td v-else class="t-cell" :style="cssProps" :class="{'action': data.type == 'action'}" :colspan="noData" >
-    <span v-if="data.type == 'normal'">{{ data.value }}</span>
+    <span v-if="data.type == 'normal'">{{ data.value || '-' }}</span>
     <input v-if="data.type == 'checkbox'" type="checkbox" :checked="defaultSelect" v-on:change="event => selectToggle(event.target.checked)" />
     <TButton
       v-if="data.type == 'action'"
@@ -72,7 +72,7 @@ export default {
         // this.data.value(this.test);
       }
     },
-  },
+  }
 };
 </script>
 

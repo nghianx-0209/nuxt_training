@@ -49,6 +49,8 @@ export default {
 
 <script setup lang="ts">
 const client = useClient();
+const exam = useFetch("http://localhost:3000/exam");
+console.log(exam);
 definePageMeta({
   layout: "default",
   middleware: [

@@ -6,7 +6,7 @@
         <div class="flex space-between">
           <div>
             <div>
-              <p class="company-name">Sun Asterisk - ASP 1</p>
+              <p class="company-name">{{ client.info.userId }}</p>
             </div>
             <br />
             <div>
@@ -72,7 +72,7 @@ https://cubic2.sun-asterisk.vn/hash/hongtestasp01Employee"
             class="condition-column border text-center"
             style="color: #647396; font-weight: 600"
           >
-          <UserAdd />
+            <UserAdd />
             ログインID
           </div>
         </div>
@@ -137,12 +137,33 @@ https://cubic2.sun-asterisk.vn/hash/hongtestasp01Employee"
           <div>
             <TTable
               :cellWidth="[5, 15, 15, 15, 15, 15, 15]"
-              :data="data2"
+              :data="getData"
               :actions="[]"
               :noDataText="noDataText"
               :selectAll="true"
               :selectAllStatus="selectAllStatus"
+              :currentIndex="currentIndex"
             />
+            <div v-if="data2?.body.length !== 0" class="data-status">
+              <div class="paging-list">
+                <li
+                  v-for="index in getPagination"
+                  class="paging-item"
+                  :class="{ 'current-page': currentIndex == index }"
+                  :key="index"
+                  v-on:click="currentIndex = index"
+                >
+                  <a href="#">
+                    {{ index + 1 }}
+                  </a>
+                </li>
+              </div>
+              <p>
+                全{{ data2.body.length }}件中{{
+                  currentIndex * pageSize + 1
+                }}~{{ (currentIndex + 1) * pageSize }}件を表示中
+              </p>
+            </div>
           </div>
           <div class="preline">
             <p v-for="(preline, index) in prelines" :key="index">
@@ -230,12 +251,41 @@ export default {
       fetchData: undefined,
       selectAll: false,
       selectAllStatus: false,
+      currentIndex: 0,
+      pageSize: 2,
     };
   },
   methods: {
     async fetchDataHandle() {
       const data = await useFetch("http://localhost:3000/examinees");
       this.data2.body = data.data;
+    },
+  },
+  computed: {
+    getData() {
+      return {
+        header: this.data2.header,
+        body: this.data2.body.filter(
+          (item, index) =>
+            index >= this.currentIndex * this.pageSize &&
+            index < (this.currentIndex + 1) * this.pageSize
+        ),
+      };
+    },
+    getPagination() {
+      return [...Array(this.data2.body.length / this.pageSize).keys()].filter(
+        (item, index) =>
+          index >=
+            this.currentIndex -
+              5 -
+              (this.currentIndex + 5 > this.data2.body.length / this.pageSize
+                ? this.currentIndex + 5 - this.data2.body.length / this.pageSize
+                : 0) &&
+          index <=
+            this.currentIndex +
+              5 +
+              (this.currentIndex - 5 < 0 ? 5 - this.currentIndex - 1 : 0)
+      );
     },
   },
 };
@@ -424,6 +474,18 @@ export default {
 
         .result-control {
           justify-content: space-between;
+
+          button {
+            margin: 0;
+          }
+        }
+
+        .data-status {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: $secondary-300;
         }
       }
 
@@ -438,6 +500,40 @@ export default {
           line-height: 150%;
           margin: 0;
         }
+      }
+    }
+  }
+
+  .paging-list {
+    display: flex;
+
+    .paging-item {
+      align-items: center;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      height: 32px;
+      justify-content: center;
+      margin-right: 4px;
+      min-width: 32px;
+      padding: 6px;
+      box-sizing: border-box;
+
+      a {
+        color: #2ba4aa !important;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        text-decoration: none;
+      }
+    }
+
+    .current-page {
+      background-color: #647396;
+      box-sizing: border-box;
+
+      a {
+        color: #fff !important;
+        font-weight: 700;
       }
     }
   }

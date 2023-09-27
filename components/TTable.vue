@@ -44,7 +44,7 @@ defineProps({
   selectAllStatus: {
     type: Boolean,
     default: false
-  }
+    }
 });
 </script>
 
