@@ -51,66 +51,153 @@ https://cubic2.sun-asterisk.vn/hash/hongtestasp01Employee"
         />
       </div>
       <div class="search-condition grid">
-        <div class="search-condition_item grid grid-column-2">
-          <div
-            class="condition-column border text-center"
-            style="color: #647396; font-weight: 600"
-          >
-            <SearchIcon />
-            氏名
-          </div>
-          <div
-            class="condition-column border text-center"
-            style="color: #647396; font-weight: 600"
-          >
-            <SearchIcon />
-            フルガナ
-          </div>
-        </div>
-        <div class="search-condition_item grid grid-column-2">
-          <div
-            class="condition-column border text-center"
-            style="color: #647396; font-weight: 600"
-          >
-            <UserAdd />
-            ログインID
-          </div>
-        </div>
-        <div class="search-condition_item grid grid-column-2">
-          <div class="condition-column grid grid-column-2">
-            <div class="sub-condition border" style="color: #2e3853">分類</div>
-            <div class="sub-condition border" style="color: #2e3853">区分</div>
-          </div>
-          <div class="condition-column grid grid-column-2">
-            <div class="sub-condition border" style="color: #2e3853">
-              指定しない
+        <div v-if="showFilter">
+          <div class="search-condition_item grid grid-column-2">
+            <div>
+              <label>氏名</label>
+              <div
+                class="condition-column border text-center"
+                style="
+                  color: #647396;
+                  font-weight: 600;
+                  background-color: #f4f7fa;
+                "
+              >
+                <SearchIcon />
+                氏名
+              </div>
             </div>
-            <div class="sub-condition border" style="color: #2e3853">
-              結果出力状態
+            <div>
+              <label>フリガナ</label>
+              <div
+                class="condition-column border text-center"
+                style="
+                  color: #647396;
+                  font-weight: 600;
+                  background-color: #f4f7fa;
+                "
+              >
+                <SearchIcon />
+                フルガナ
+              </div>
             </div>
           </div>
-        </div>
-        <div class="search-condition_item grid grid-column-2">
-          <div class="condition-column grid grid-column-2">
-            <div class="sub-condition border">受検期間開始日時</div>
-            <div class="sub-condition border">受検期間終了日時</div>
+          <div class="search-condition_item grid grid-column-2">
+            <div>
+              <label>ログインID</label>
+              <div
+                class="condition-column border text-center"
+                style="
+                  color: #647396;
+                  font-weight: 600;
+                  background-color: #f4f7fa;
+                "
+              >
+                <UserAdd />
+                ログインID
+              </div>
+            </div>
           </div>
-          <div class="condition-column grid grid-column-2">
-            <div class="sub-condition border">受検者登録日</div>
-            <div class="sub-condition border">受検完了日</div>
+          <div class="search-condition_item grid grid-column-2">
+            <div class="condition-column grid grid-column-2">
+              <div>
+                <label>分類</label>
+                <div class="sub-condition border" style="color: #2e3853">
+                  (未設定)
+                </div>
+              </div>
+              <div>
+                <label>区分</label>
+                <div class="sub-condition border" style="color: #2e3853">
+                  (未設定)
+                </div>
+              </div>
+            </div>
+            <div class="condition-column grid grid-column-2">
+              <div>
+                <label>受検状態</label>
+                <div class="sub-condition border" style="color: #2e3853">
+                  (未設定)
+                </div>
+              </div>
+              <div>
+                <label>結果出力状態</label>
+                <div class="sub-condition border" style="color: #2e3853">
+                  (未設定)
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="search-condition_item grid grid-column-2">
-          <div class="condition-column grid grid-column-2">
-            <div class="sub-condition border">受検結果出力開始日時</div>
-            <div class="sub-condition border">受検結果出力終了日時</div>
+          <div class="search-condition_item grid grid-column-2">
+            <div class="condition-column grid grid-column-2">
+              <div>
+                <label>受検期間開始日時</label>
+                <div class="sub-condition border">
+                  <span>yyyy/mm/dd hh:mm</span>
+                  <CalendarIcon />
+                </div>
+              </div>
+              <div>
+                <label>受検期間終了日時</label>
+                <div class="sub-condition border">
+                  <span>yyyy/mm/dd hh:mm</span>
+                  <CalendarIcon />
+                </div>
+              </div>
+            </div>
+            <div class="condition-column grid grid-column-2">
+              <div>
+                <label>受検者登録日</label>
+                <div class="sub-condition border">
+                  <span>yyyy/mm/dd</span>
+                  <CalendarIcon />
+                </div>
+              </div>
+              <div>
+                <label>受検完了日</label>
+                <div class="sub-condition border">
+                  <span>yyyy/mm/dd</span>
+                  <CalendarIcon />
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="condition-column grid grid-column-2">
-            <div class="sub-condition border">受検者表示状態</div>
+          <div class="search-condition_item grid grid-column-2">
+            <div class="condition-column grid grid-column-2">
+              <div>
+                <label>受検結果出力開始日時</label>
+                <div class="sub-condition border">
+                  <span>yyyy/mm/dd hh:mm</span>
+                  <CalendarIcon />
+                </div>
+              </div>
+              <div>
+                <label>受検結果出力終了日時</label>
+                <div class="sub-condition border">
+                  <span>yyyy/mm/dd hh:mm</span>
+                  <CalendarIcon />
+                </div>
+              </div>
+            </div>
+            <div class="condition-column grid grid-column-2">
+              <div>
+                <label>受検者表示状態</label>
+                <div class="sub-condition border">
+                  <span>表示</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="search-condition_item_action">
-          <TButton primary title="検索" :actions="fetchDataHandle">
+          <div
+            class="hide-search-condition"
+            v-on:click="showFilter = !showFilter"
+          >
+            <p>フィルターを隠す</p>
+            <UpArrow />
+          </div>
+          <TButton primary title="検索" :actions="fetchDataHandle" v-if="showFilter">
             <SearchIcon />
           </TButton>
         </div>
@@ -138,7 +225,7 @@ https://cubic2.sun-asterisk.vn/hash/hongtestasp01Employee"
             <TTable
               :cellWidth="[5, 15, 15, 15, 15, 15, 15]"
               :data="getData"
-              :actions="[]"
+              :actions="[{ title: '詳細', handle: getExaminee }]"
               :noDataText="noDataText"
               :selectAll="true"
               :selectAllStatus="selectAllStatus"
@@ -146,6 +233,12 @@ https://cubic2.sun-asterisk.vn/hash/hongtestasp01Employee"
             />
             <div v-if="data2?.body.length !== 0" class="data-status">
               <div class="paging-list">
+                <div class="paging-control" v-if="currentIndex !== 0">
+                  <LeftArrow />
+                </div>
+                <div class="paging-dot" v-if="currentIndex - 5 > 0">
+                  <DotHorizontal />
+                </div>
                 <li
                   v-for="index in getPagination"
                   class="paging-item"
@@ -157,6 +250,18 @@ https://cubic2.sun-asterisk.vn/hash/hongtestasp01Employee"
                     {{ index + 1 }}
                   </a>
                 </li>
+                <div
+                  class="paging-dot"
+                  v-if="currentIndex + 5 < data2.body.length / pageSize - 1"
+                >
+                  <DotHorizontal />
+                </div>
+                <div
+                  class="paging-control"
+                  v-if="currentIndex !== data2.body.length / pageSize - 1"
+                >
+                  <RightArrow />
+                </div>
               </div>
               <p>
                 全{{ data2.body.length }}件中{{
@@ -181,8 +286,11 @@ import router1 from "~/routes/router1";
 import DownloadIcon from "@/assets/icons/download.svg";
 import SearchIcon from "@/assets/icons/search.svg";
 import CalendarIcon from "@/assets/icons/calendar.svg";
-import TagIcon from "@/assets/icons/tag.svg";
 import UserAdd from "@/assets/icons/user-add.svg";
+import RightArrow from "@/assets/icons/right-arrow.svg";
+import LeftArrow from "@/assets/icons/left-arrow.svg";
+import UpArrow from "@/assets/icons/up-arrow.svg";
+import DotHorizontal from "@/assets/icons/dots-horizontal.svg";
 
 const breakcrumb = useBreakcrumb();
 const client = useClient();
@@ -201,7 +309,7 @@ breakcrumb.value[0] = {
   url: `/client/${client.value.info.clientId}/top`,
 };
 breakcrumb.value[1] = {
-  title: exam.value.examId,
+  title: exam.value.id,
   url: undefined,
 };
 breakcrumb.value[2] = {
@@ -252,13 +360,17 @@ export default {
       selectAll: false,
       selectAllStatus: false,
       currentIndex: 0,
-      pageSize: 2,
+      pageSize: 10,
+      showFilter: true,
     };
   },
   methods: {
     async fetchDataHandle() {
       const data = await useFetch("http://localhost:3000/examinees");
       this.data2.body = data.data;
+    },
+    getExaminee(value) {
+      console.log(value);
     },
   },
   computed: {
@@ -398,6 +510,13 @@ export default {
       padding: 24px 48px;
       gap: 0.25rem;
 
+      label {
+        color: #3e4a68;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+      }
+
       .border {
         border: 1px solid #939db6;
         border-radius: 8px;
@@ -419,14 +538,44 @@ export default {
 
       .search-condition_item {
         width: 100%;
+
+        .condition-column {
+          // background-color: #f4f7fa;
+          .sub-condition {
+            background-color: #f4f7fa;
+            display: flex;
+            justify-content: space-between;
+            color: #4f5b79;
+            font-size: 16px;
+          }
+        }
       }
 
       .search-condition_item_action {
-        width: 50%;
-        margin: auto;
+        width: 100%;
+        // margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
         button {
-          width: 100%;
+          width: 50%;
+          margin: 0;
+        }
+
+        .hide-search-condition {
+          align-items: center;
+          color: #2ba4aa;
+          cursor: pointer;
+          display: flex;
+          font-size: 14px;
+          font-weight: 600;
+          gap: 4px;
+          line-height: 20px;
+
+          svg {
+            font-size: x-large;
+          }
         }
       }
     }
@@ -458,7 +607,7 @@ export default {
           }
 
           td {
-            border-right: 1px solid #e6e9ef;
+            border: none;
           }
 
           tr {
@@ -535,6 +684,33 @@ export default {
         color: #fff !important;
         font-weight: 700;
       }
+    }
+
+    .paging-control {
+      display: flex;
+      align-items: center;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      height: 32px;
+      justify-content: center;
+      margin-right: 4px;
+      min-width: 32px;
+      padding: 6px;
+      box-sizing: border-box;
+      background-color: #d8dce5;
+    }
+
+    .paging-dot {
+      align-items: center;
+      border-radius: 12px;
+      display: flex;
+      height: 32px;
+      justify-content: center;
+      margin-right: 4px;
+      min-width: 32px;
+      padding: 6px;
+      color: #2ba4aa;
     }
   }
 }

@@ -73,14 +73,16 @@ export default {
           type: "normal",
         })),
       ];
-      this.actions.forEach((action) => {
-        this.rowData.push({
-          type: "action",
-          value: (value) => action(value),
-          url: `exam/${this.data["a"]}/exam-top`,
-          examId: this.data["a"],
+
+      if (this.noData === 1) {
+        this.actions.forEach((action) => {
+          this.rowData.push({
+            type: "action",
+            value: () => action.handle(this.data),
+            title: action.title,
+          });
         });
-      });
+      }
     } else {
       this.rowData = this.data.map((item) => ({ value: item }));
       for (let i = 0; i < this.actionsSize; ++i) this.rowData.push("");
@@ -117,6 +119,23 @@ export default {
             type: "normal",
           })),
         ];
+
+        if (this.noData === 1) {
+          this.actions?.forEach((action) => {
+            this.rowData.push({
+              type: "action",
+              value: (value) => action(value),
+              url: `exam/${this.data["a"]}/exam-top`,
+              examId: this.data["a"],
+              title: "詳細",
+            });
+          });
+        }
+
+        if (this.header) {
+          this.rowData = this.data.map((item) => ({ value: item }));
+          for (let i = 0; i < this.actionsSize; ++i) this.rowData.push("");
+        }
       },
       deep: true,
     },

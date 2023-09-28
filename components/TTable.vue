@@ -3,6 +3,7 @@
     <table class="t-table">
       <thead>
         <TRow
+          :hidden="hidden"
           :data="selectAll ? [' ', ...data.header] : data.header"
           :cellWidth="cellWidth"
           :header="true"
@@ -20,8 +21,16 @@
           :selectAll="selectAll"
           :selectToggle="(data) => selectToggle(data)"
           :defaultSelect="selectAllStatus"
+          :hidden="hidden"
         />
-        <TRow v-if="data.body.length === 0" :data="{text: noDataText}" :cellWidth="[100]" :actions="actions" :noData="data.header.length" />
+        <TRow
+          v-if="data.body.length === 0"
+          :data="{ text: noDataText }"
+          :cellWidth="[100]"
+          :actions="actions"
+          :noData="data.header.length + actions.length"
+          :hidden="hidden"
+        />
       </tbody>
     </table>
   </div>
@@ -39,46 +48,51 @@ defineProps({
   noDataText: String,
   selectAll: {
     type: Boolean,
-    default: false
+    default: false,
   },
   selectAllStatus: {
     type: Boolean,
-    default: false
-    }
+    default: false,
+  },
+  hidden: {
+    type: Array,
+    // eslint-disable-next-line vue/require-valid-default-prop
+    default: [],
+  },
 });
 </script>
 
-
 <script>
-  export default {
-    data() {
-      return {
-        selectData: []
-      }
+export default {
+  data() {
+    return {
+      selectData: [],
+    };
+  },
+  methods: {
+    selectToggle(item) {
+      if (item.checked) this.selectData.push(item.data);
+      else
+        this.selectData = this.selectData.filter(
+          (data) => data.id !== item.data.id
+        );
     },
-    methods: {
-      selectToggle(item) {
-        if (item.checked)
-          this.selectData.push(item.data);
-        else
-          this.selectData = this.selectData.filter(data => data.id !== item.data.id);
-      }
+  },
+  computed: {
+    selectAllToggle() {
+      this.selectData = this.selectAllToggle ? this.data.body : [];
+      return this.selectAllToggle ? this.data.body : [];
     },
-    computed: {
-      selectAllToggle() {
-        this.selectData = this.selectAllToggle ? this.data.body : [];
-        return this.selectAllToggle ? this.data.body : [];
-      }
+  },
+  watch: {
+    selectData() {
+      console.log(this.selectData);
     },
-    watch: {
-      selectData() {
-        console.log(this.selectData);
-      },
-      selectAllStatus() {
-        this.selectAllToggle;
-      }
-    }
-  }
+    selectAllStatus() {
+      this.selectAllToggle;
+    },
+  },
+};
 </script>
 
 <style lang="scss">

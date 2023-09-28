@@ -8,20 +8,14 @@
     <input v-if="data.type == 'checkbox'" type="checkbox" :checked="defaultSelect" v-on:change="event => selectToggle(event.target.checked)" />
     <TButton
       v-if="data.type == 'action'"
-      :actions="
-        () => {
-          exam = { examId: data.examId };
-          click(data.url);
-        }
-      "
-      title="選択"
+      :actions="() => data.value()"
+      :title="data.title"
       secondary
     />
   </td>
 </template>
 
 <script setup>
-const exam = useExam();
 defineProps({
   data: {
     type: Object,
@@ -62,15 +56,6 @@ export default {
       return {
         "--width": `${this.cellWidth}%`,
       };
-    },
-  },
-  methods: {
-    click(url) {
-      if (!this.header) {
-        navigateTo(url);
-        // console.log(url);
-        // this.data.value(this.test);
-      }
     },
   }
 };

@@ -4,8 +4,8 @@
     {
       "id": 1,
       "exam_name": "exam test",
-      "from": "",
-      "end": "",
+      "from": "2023年09月19日",
+      "end": "2024年09月01日",
       "examinees_number": 1,
       "examinees_info": {
         "not_registed": 1,
@@ -14,7 +14,8 @@
         "finish_exam": 1,
         "not_submit": 1,
         "submited": 1
-      }
+      },
+      "recruitment": true
     },
     {
       "id": 2,
@@ -29,7 +30,8 @@
         "finish_exam": 1,
         "not_submit": 1,
         "submited": 1
-      }
+      },
+      "recruitment": true
     },
     {
       "id": 3,
@@ -44,7 +46,8 @@
         "finish_exam": 1,
         "not_submit": 1,
         "submited": 1
-      }
+      },
+      "recruitment": true
     },
     {
       "id": 4,
@@ -59,7 +62,8 @@
         "finish_exam": 1,
         "not_submit": 1,
         "submited": 1
-      }
+      },
+      "recruitment": true
     },
     {
       "id": 5,
@@ -74,7 +78,8 @@
         "finish_exam": 1,
         "not_submit": 1,
         "submited": 1
-      }
+      },
+      "recruitment": false
     },
     {
       "id": 6,
@@ -89,7 +94,8 @@
         "finish_exam": 1,
         "not_submit": 1,
         "submited": 1
-      }
+      },
+      "recruitment": false
     },
     {
       "id": 7,
@@ -104,7 +110,8 @@
         "finish_exam": 1,
         "not_submit": 1,
         "submited": 1
-      }
+      },
+      "recruitment": true
     }
   ],
   "profile": { "name": "typicode" },

@@ -1,16 +1,34 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="main">
-    <div class="fixed page-title flex item-center">{{ client?.info.userId }}</div>
+    <div class="fixed page-title flex item-center">
+      {{ client?.info.userId }}
+    </div>
     <div class="body-page">
       <div class="page-wrapper">
-        <TTable :data="data" :cellWidth="cellWidth" :actions="[actions1]" activeRow />
+        <!-- {{ exams }} -->
+        <TTable
+          :data="{header: data.header, body: exams?.map(exam => ({id: exam.id, exam_name: exam.exam_name, exam_type: exam.recruitment ? '採用用' : '現有社員用'}))}"
+          :hidden="[0]"
+          :cellWidth="cellWidth"
+          :actions="[
+            {
+              title: '選択',
+              handle: (selectedExam) => {
+                console.log(selectedExam);
+                exam = selectedExam;
+                actions1(selectedExam);
+              }
+            }
+          ]"
+          activeRow
+        />
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   data() {
     return {
@@ -40,23 +58,26 @@ export default {
     };
   },
   methods: {
-    actions1(value: Number) {
-      console.log(value)
-    },
+    actions1(value) {
+      console.log(value);
+      navigateTo(`exam/${value.id}/exam-top`);
+    }
   },
 };
 </script>
 
-<script setup lang="ts">
+<script setup>
 const client = useClient();
-const exam = useFetch("http://localhost:3000/exam");
-console.log(exam);
+const response = await useFetch("http://localhost:3000/exam");
+const exams = ref();
+exams.value = response.data.value;
+console.log(exams)
+const exam = useExam();
 definePageMeta({
   layout: "default",
-  middleware: [
-    "auth"
-  ]
+  middleware: ["auth"],
 });
+
 </script>
 
 <style lang="scss">
