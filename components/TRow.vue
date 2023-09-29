@@ -1,5 +1,6 @@
 <template>
   <tr class="t-row" :class="{ active: active }">
+    <!-- {{ data }} -->
     <TCell
       v-for="(cell, index) in rowData"
       :data="cell"
@@ -75,10 +76,10 @@ export default {
       ];
 
       if (this.noData === 1) {
-        this.actions.forEach((action) => {
+        this.actions.forEach((action, index) => {
           this.rowData.push({
             type: "action",
-            value: () => action.handle(this.data),
+            value: () => action.handle(this.data, index),
             title: action.title,
           });
         });
@@ -93,13 +94,6 @@ export default {
       return {
         "--width": `${this.cellWidth}%`,
       };
-    },
-  },
-  methods: {
-    click() {
-      if (!this.header) {
-        this.data.value(this.test);
-      }
     },
   },
   watch: {
@@ -124,7 +118,7 @@ export default {
           this.actions?.forEach((action) => {
             this.rowData.push({
               type: "action",
-              value: (value) => action(value),
+              value: (value) => action.handle(value),
               url: `exam/${this.data["a"]}/exam-top`,
               examId: this.data["a"],
               title: "詳細",
@@ -138,7 +132,7 @@ export default {
         }
       },
       deep: true,
-    },
+    }
   },
 };
 </script>

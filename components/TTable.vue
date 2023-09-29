@@ -3,7 +3,6 @@
     <table class="t-table">
       <thead>
         <TRow
-          :hidden="hidden"
           :data="selectAll ? [' ', ...data.header] : data.header"
           :cellWidth="cellWidth"
           :header="true"
@@ -12,7 +11,7 @@
       </thead>
       <tbody>
         <TRow
-          v-for="(row, index) in data.body"
+          v-for="(row, index) in data?.body"
           v-bind:key="index"
           :data="row"
           :cellWidth="cellWidth"
@@ -21,15 +20,13 @@
           :selectAll="selectAll"
           :selectToggle="(data) => selectToggle(data)"
           :defaultSelect="selectAllStatus"
-          :hidden="hidden"
         />
         <TRow
-          v-if="data.body.length === 0"
+          v-if="data.body?.length === 0"
           :data="{ text: noDataText }"
           :cellWidth="[100]"
           :actions="actions"
           :noData="data.header.length + actions.length"
-          :hidden="hidden"
         />
       </tbody>
     </table>
@@ -54,11 +51,7 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  hidden: {
-    type: Array,
-    // eslint-disable-next-line vue/require-valid-default-prop
-    default: [],
-  },
+  test: String
 });
 </script>
 
@@ -85,12 +78,9 @@ export default {
     },
   },
   watch: {
-    selectData() {
-      console.log(this.selectData);
-    },
     selectAllStatus() {
       this.selectAllToggle;
-    },
+    }
   },
 };
 </script>

@@ -2,7 +2,6 @@
   <div class="main-content">
     <div class="examinee-search">
       <div class="display-info">
-        {{ fetchExaminee }}
         <div class="flex space-between">
           <div>
             <div>
@@ -10,7 +9,7 @@
             </div>
             <br />
             <div>
-              <p class="exam-name">[HongNT][ASP]Exam01Employee</p>
+              <p class="exam-name">{{ exam.exam_name }}</p>
             </div>
           </div>
           <div class="flex">
@@ -33,7 +32,7 @@ https://cubic2.sun-asterisk.vn/hash/hongtestasp01Employee"
           </div>
           <div class="exam-info">
             <div class="exam-info__key">期間</div>
-            <div class="exam-info__value">2023年09月19日 ~ 2024年09月01日</div>
+            <div class="exam-info__value">{{ exam.from }} ~ {{ exam.end }}</div>
           </div>
           <div class="exam-info">
             <div class="exam-info__key">実施科目</div>
@@ -41,12 +40,15 @@ https://cubic2.sun-asterisk.vn/hash/hongtestasp01Employee"
           </div>
           <div class="exam-info">
             <div class="exam-info__key">申込人数</div>
-            <div class="exam-info__value">0</div>
+            <div class="exam-info__value">{{ exam.examinees_number }}</div>
           </div>
         </div>
         <TTable
           :cellWidth="[15, 15, 15, 15, 15, 15]"
-          :data="data"
+          :data="{
+            header: data.header,
+            body: [{ ...exam.examinees_info }],
+          }"
           :actions="[]"
         />
       </div>
@@ -194,10 +196,18 @@ https://cubic2.sun-asterisk.vn/hash/hongtestasp01Employee"
             class="hide-search-condition"
             v-on:click="showFilter = !showFilter"
           >
-            <p>フィルターを隠す</p>
-            <UpArrow />
+            <p>
+              {{ showFilter ? "フィルターを隠す" : "フィルターを表示する" }}
+            </p>
+            <UpArrow v-if="showFilter" />
+            <DownArrow v-if="!showFilter" />
           </div>
-          <TButton primary title="検索" :actions="fetchDataHandle" v-if="showFilter">
+          <TButton
+            primary
+            title="検索"
+            :actions="fetchDataHandle"
+            v-if="showFilter"
+          >
             <SearchIcon />
           </TButton>
         </div>
@@ -290,32 +300,47 @@ import UserAdd from "@/assets/icons/user-add.svg";
 import RightArrow from "@/assets/icons/right-arrow.svg";
 import LeftArrow from "@/assets/icons/left-arrow.svg";
 import UpArrow from "@/assets/icons/up-arrow.svg";
+import DownArrow from "@/assets/icons/down-arrow.svg";
 import DotHorizontal from "@/assets/icons/dots-horizontal.svg";
 
 const breakcrumb = useBreakcrumb();
 const client = useClient();
 const route = useRoute();
 const exam = useExam();
+
 const currentPage = route.path.split("/").slice(-1)[0];
+
+if (!exam.value) {
+  const response = await fetch(
+    `http://localhost:3000/exam?id=${route.path.split("/").slice(-2)[0]}`
+  );
+  const realData = await response.json();
+  exam.value = realData[0];
+}
+
 const parentItem = router1.find(
   (route, index) =>
     (route.url === currentPage ||
       route.childs?.some((child) => child.url === currentPage)) &&
     index !== 0
 );
+
 const subItem = parentItem.childs?.find((child) => child.url === currentPage);
 breakcrumb.value[0] = {
   title: client.value.info.userId,
   url: `/client/${client.value.info.clientId}/top`,
 };
+
 breakcrumb.value[1] = {
   title: exam.value.id,
   url: undefined,
 };
+
 breakcrumb.value[2] = {
   title: parentItem.name,
   url: undefined,
 };
+
 if (subItem)
   breakcrumb.value[3] = {
     title: subItem.name,
@@ -334,7 +359,7 @@ export default {
     return {
       data: {
         header: ["登録者", "未受検者", "受検中", "受検済", "出力済", "未出力"],
-        body: [{ a: "1人", b: "1人", c: "1人", d: "1人", e: "1人", f: "1人" }],
+        body: [],
       },
       data2: {
         header: [
@@ -368,9 +393,6 @@ export default {
     async fetchDataHandle() {
       const data = await useFetch("http://localhost:3000/examinees");
       this.data2.body = data.data;
-    },
-    getExaminee(value) {
-      console.log(value);
     },
   },
   computed: {
@@ -594,6 +616,9 @@ export default {
         .table-wrapper {
           border-color: #e6e9ef;
           margin: 1rem 0px;
+          border: 1px solid #939db6;
+          border-radius: 16px;
+          margin-bottom: 1rem;
 
           th {
             tr {

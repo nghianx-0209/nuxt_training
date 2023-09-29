@@ -8,19 +8,19 @@
       <div class="page-wrapper">
         <!-- {{ exams }} -->
         <TTable
-          :data="{header: data.header, body: exams?.map(exam => ({id: exam.id, exam_name: exam.exam_name, exam_type: exam.recruitment ? '採用用' : '現有社員用'}))}"
-          :hidden="[0]"
+          v-if="data"
+          :data="data"
           :cellWidth="cellWidth"
           :actions="[
             {
               title: '選択',
-              handle: (selectedExam) => {
-                console.log(selectedExam);
-                exam = selectedExam;
-                actions1(selectedExam);
-              }
-            }
+              handle: (selectedExam, index) => {
+                exam = exams[index];
+                actions1(exams[index]);
+              },
+            },
           ]"
+          :test="exams ? exams[0].exam_name : undefined"
           activeRow
         />
       </div>
@@ -33,51 +33,48 @@ export default {
   data() {
     return {
       title: "Sun Asterisk - ASP 1",
-      data: {
-        header: ["検査名", "検査種別"],
-        body: [
-          { a: 1, b: 2 },
-          { a: 2, b: 5 },
-          { a: 3, b: 5 },
-          { a: 4, b: 5 },
-          { a: 5, b: 5 },
-          { a: 6, b: 5 },
-          { a: 7, b: 5 },
-          { a: 8, b: 5 },
-          { a: 9, b: 5 },
-          { a: 10, b: 5 },
-          { a: 11, b: 5 },
-          { a: 12, b: 5 },
-          { a: 13, b: 5 },
-          { a: 14, b: 5 },
-          { a: 15, b: 5 },
-        ],
-      },
+      // data: {
+      //   header: ["検査名", "検査種別"],
+      //   body: [],
+      // },
       // eslint-disable-next-line camelcase
       cellWidth: [65, 20],
     };
   },
   methods: {
     actions1(value) {
-      console.log(value);
       navigateTo(`exam/${value.id}/exam-top`);
-    }
+    },
   },
 };
 </script>
 
 <script setup>
 const client = useClient();
-const response = await useFetch("http://localhost:3000/exam");
-const exams = ref();
-exams.value = response.data.value;
-console.log(exams)
 const exam = useExam();
+
+const exams = ref(null);
+const data = ref(null);
+
+async function fetchData() {
+  const response = await fetch("http://localhost:3000/exam");
+  const realData = await response.json();
+  exams.value = realData;
+  data.value = {
+    header: ["検査名", "検査種別"],
+    body: realData.map((exam) => ({
+      examName: exam.exam_name,
+      examType: exam.recruitment ? "採用用" : "現有社員用"
+    })),
+  };
+}
+
+fetchData();
+
 definePageMeta({
   layout: "default",
   middleware: ["auth"],
 });
-
 </script>
 
 <style lang="scss">

@@ -60,7 +60,7 @@ import UsersGroup from "@/assets/icons/user-group.svg";
 import ViewGrid from "@/assets/icons/view-grid.svg";
 import ClipboardList from "@/assets/icons/clipboard-list.svg";
 import Mail from "@/assets/icons/mail.svg";
-import Downarrow from "@/assets/icons/down.svg";
+import Downarrow from "@/assets/icons/down-arrow.svg";
 import route from "@/routes/router1";
 
 export default {
